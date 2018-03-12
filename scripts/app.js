@@ -10,7 +10,7 @@
 $(() => {
     var uploadNowBtn = document.getElementById("openUploadBox");
     var fbLoginModal = document.getElementById("loginFb");
-    var postCreatorModal = document.getElementById("postCreator");
+    var postCreatorModal = document.getElementById("postCreatorModal");
 
     window.fbAsyncInit = function() {
         FB.init({
