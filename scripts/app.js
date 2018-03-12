@@ -1,7 +1,25 @@
+(function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) { return; }
+    js = d.createElement(s);
+    js.id = id;
+    js.src = "https://connect.facebook.net/en_US/sdk.js";
+    fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));
+
 $(() => {
     var uploadNowBtn = document.getElementById("openUploadBox");
-    var fbLoginModal = document.getElementById("fbLoginModal");
+    var fbLoginModal = document.getElementById("loginFb");
     var postCreatorModal = document.getElementById("postCreator");
+
+    window.fbAsyncInit = function() {
+        FB.init({
+            appId: '578128222551876',
+            autoLogAppEvents: true,
+            xfbml: true,
+            version: 'v2.12'
+        });
+    };
 
     var shareToFb = function() {
         FB.ui({
@@ -28,8 +46,8 @@ $(() => {
         });
     };
 
-    var isFbLoggedIn = new Promise(function(resolve, reject) {
-        FB.getLoginStatus(function(response) {
+    var isFbLoggedIn = function() {
+        return FB.getLoginStatus(function(response) {
             if (response.status === 'connected') {
                 // the user is logged in and has authenticated your
                 // app, and response.authResponse supplies
@@ -38,30 +56,35 @@ $(() => {
                 // and signed request each expire
                 var uid = response.authResponse.userID;
                 var accessToken = response.authResponse.accessToken;
-                resolve(true);
+                return true;
             } else if (response.status === 'not_authorized') {
                 // the user is logged in to Facebook, 
                 // but has not authenticated your app
-                resolve(true);
+                return true;
             } else {
                 // the user isn't logged in to Facebook.
-                reject("User isn't logged in");
+                return false;
             }
         });
-    });
+    };
 
     var openUploadBox = function() {
-    	var self = this;
-        uploadNowBtn.innerHTML = "Opening...";
-        self.isFbLoggedIn().then((res) => {
-            if (res) {
-                self.openPostCreator();
-            }
-        }, (err) => {
-            // in case of API fail or not logged in
-            console.log("error", err);
-            self.openFbLoginModal();
-        });
+        // uploadNowBtn.innerHTML = "Opening...";
+        // isFbLoggedIn.then((res) => {
+        //     if (res) {
+        //         openPostCreator();
+        //     }
+        // }, (err) => {
+        //     // in case of API fail or not logged in
+        //     console.log("error", err);
+        //     openFbLoginModal();
+        // });
+        var loggedIn = isFbLoggedIn();
+        if(loggedIn) {
+        	openPostCreator();
+        } else {
+        	openFbLoginModal();
+        }
     };
 
     var openPostCreator = function() {
@@ -72,10 +95,16 @@ $(() => {
         fbLoginModal.classList.add("fbLoginOpen");
     };
 
+    var closeFbLoginModal = function() {
+        fbLoginModal.classList.remove("fbLoginOpen");
+    };
+
     var hidePostCreator = function() {
         postCreatorModal.classList.remove("postCreatorOpen");
     }
 
     // Attaching click events
+    document.getElementById("loginBtn").onclick = loginToFacebook;
     document.getElementById("openUploadBox").onclick = openUploadBox;
+    document.getElementById("closeLoginPopup").onclick = closeFbLoginModal;
 });

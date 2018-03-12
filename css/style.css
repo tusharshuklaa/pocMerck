@@ -1,0 +1,59 @@
+.parentBox {
+	position: fixed;
+	top: 0px;
+	left: 0px;
+	bottom: 0px;
+	right: 0px;
+	overflow: hidden;
+	text-align: center;
+}
+
+.parentBox #openUploadBox {
+	margin-top: 60vh;
+}
+
+.parentBox #loginFb {
+	height: 100%;
+	width: 100%;
+	text-align: center;
+	background-color: rgba(0, 0, 0, 0.6);
+	position: absolute;
+	top: 0px;
+	display: none;
+}
+
+.parentBox #loginFb #closeLoginPopup {
+	display: inline-block;
+	color: black;
+	width: 1em;
+    height: 1em;
+    float: right;
+    padding-right: 3px;
+	cursor: pointer;
+}
+
+.parentBox #loginFb.fbLoginOpen {
+	display: block;
+}
+
+.parentBox #loginFb .loginPopup {
+	width: 30%;
+	min-width: 300px;
+	height: 40vh;
+	border: 1px solid;
+	margin: auto;
+	background-color: white;
+	margin-top: 100px;
+	border-radius: 5px;
+}
+
+.parentBox #loginFb .loginPopup #loginBtn {
+	margin-top: 40px;
+	color: white;
+	background-color: blue;
+	outline: none;
+	box-shadow: none;
+	border: 0px;
+	padding: 10px 15px;
+	border-radius: 2px;
+}
