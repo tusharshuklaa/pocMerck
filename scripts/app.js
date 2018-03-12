@@ -126,7 +126,7 @@ $(() => {
         showZoomer: false,
     });
 
-    avatar.bind({
+    $('#avatar').bind({
         url: './images/cat.jpg'
     });
 
