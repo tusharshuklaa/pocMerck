@@ -131,7 +131,7 @@ $(() => {
 	});
 
 	avatar.bind({
-	    url: "/images/cat.jpg"
+	    url: "/pocMerck/images/cat.jpg"
 	});
 
     // $('#imgUploader').on("change", function() {
