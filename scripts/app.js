@@ -8,9 +8,9 @@
 }(document, 'script', 'facebook-jssdk'));
 
 $(() => {
-    var uploadNowBtn = document.getElementById("openUploadBox");
-    var fbLoginModal = document.getElementById("loginFb");
-    var postCreatorModal = document.getElementById("postCreatorModal");
+    var uploadNowBtn = $("#openUploadBox");
+    var fbLoginModal = $("#loginFb");
+    var postCreatorModal = $("#postCreatorModal");
 
     window.fbAsyncInit = function() {
         FB.init({
@@ -70,22 +70,6 @@ $(() => {
     };
 
     var openUploadBox = function() {
-        // uploadNowBtn.innerHTML = "Opening...";
-        // isFbLoggedIn.then((res) => {
-        //     if (res) {
-        //         openPostCreator();
-        //     }
-        // }, (err) => {
-        //     // in case of API fail or not logged in
-        //     console.log("error", err);
-        //     openFbLoginModal();
-        // });
-        // var loggedIn = isFbLoggedIn();
-        // if (loggedIn) {
-        //     openPostCreator();
-        // } else {
-        //     openFbLoginModal();
-        // }
 
         isFbLoggedIn().then((loggedIn) => {
             if (loggedIn) {
@@ -101,7 +85,7 @@ $(() => {
 
     var openPostCreator = function() {
         closeFbLoginModal();
-        postCreatorModal.classList.add("postCreatorOpen");
+        postCreatorModal.addClass("postCreatorOpen");
 
         setTimeout(() => {
             var avatar = $('#avatar').croppie({
@@ -114,21 +98,21 @@ $(() => {
     };
 
     var hidePostCreator = function() {
-        postCreatorModal.classList.remove("postCreatorOpen");
+        postCreatorModal.removeClass("postCreatorOpen");
     }
 
     var openFbLoginModal = function() {
-        fbLoginModal.classList.add("fbLoginOpen");
+        fbLoginModal.addClass("fbLoginOpen");
     };
 
     var closeFbLoginModal = function() {
-        fbLoginModal.classList.remove("fbLoginOpen");
+        fbLoginModal.removeClass("fbLoginOpen");
     };
 
     // Attaching click events
-    document.getElementById("loginBtn").onclick = loginToFacebook;
-    document.getElementById("openUploadBox").onclick = openUploadBox;
-    document.getElementById("closeLoginPopup").onclick = closeFbLoginModal;
+    uploadNowBtn.on("click", openUploadBox);
+    fbLoginModal.on("click", loginToFacebook);
+    postCreatorModal.on("click", closeFbLoginModal);
 
     $('#imgUploader').on("change", () => {
         var frm = new FormData();
