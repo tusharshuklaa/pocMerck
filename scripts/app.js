@@ -119,7 +119,8 @@ $(() => {
     var avatar = $('#avatar').croppie({
         viewport: {
             width: 150,
-            height: 200
+            height: 200,
+            type: 'circle'
         },
         boundary: {
             width: 300,
