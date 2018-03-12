@@ -12,7 +12,7 @@
 	margin-top: 60vh;
 }
 
-.parentBox #loginFb, .parentBox .postCreator {
+.parentBox #loginFb, .parentBox #postCreatorModal {
 	height: 100%;
 	width: 100%;
 	text-align: center;
@@ -32,11 +32,11 @@
 	cursor: pointer;
 }
 
-.parentBox #loginFb.fbLoginOpen, .parentBox .postCreator.postCreatorOpen {
+.parentBox #loginFb.fbLoginOpen, .parentBox #postCreatorModal.postCreatorOpen {
 	display: block;
 }
 
-.parentBox #loginFb .loginPopup {
+.parentBox #loginFb .loginPopup, .parentBox #postCreatorModal .postCreator {
 	width: 30%;
 	min-width: 300px;
 	height: 40vh;
