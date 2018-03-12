@@ -10,6 +10,7 @@
 $(() => {
     var uploadNowBtn = $("#openUploadBox");
     var fbLoginModal = $("#loginFb");
+    var fbLoginModalClose = $("#closeLoginPopup");
     var postCreatorModal = $("#postCreatorModal");
     var postCreatorModalClose = $("#postModalClose");
 
@@ -41,6 +42,7 @@ $(() => {
                 console.log('Welcome!  Fetching your information.... ');
                 FB.api('/me', function(response) {
                     console.log('Good to see you, ' + response.name + '.');
+                    openPostCreator();
                 });
             } else {
                 console.log('User cancelled login or did not fully authorize.');
@@ -111,7 +113,7 @@ $(() => {
     // Attaching click events
     uploadNowBtn.on("click", openUploadBox);
     fbLoginModal.on("click", loginToFacebook);
-    postCreatorModal.on("click", closeFbLoginModal);
+    fbLoginModalClose.on("click", closeFbLoginModal);
     postCreatorModalClose.on("click", closePostCreator);
 
     var avatar = $('#avatar').croppie({
@@ -127,7 +129,7 @@ $(() => {
     });
 
     $('#avatar').bind({
-        url: './images/cat.jpg'
+        url: '/images/cat.jpg'
     });
 
     // $('#imgUploader').on("change", function() {
