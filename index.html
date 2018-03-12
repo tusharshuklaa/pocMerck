@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>POC - Post to facebook</title>
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/croppie.css">
 </head>
 
 <body>
@@ -19,11 +20,18 @@
                 	<button id="loginBtn">Login to Facebook</button>
                 </div>
             </div>
-            <div id="postCreatorModal" class="postCreator"></div>
+            <div id="postCreatorModal" class="postCreator">
+            	<form action="index_submit" method="get" accept-charset="utf-8">
+            		<input type="file" id="imgUploader" name="imageInput" accept="image/*" />
+            		<div id="avatar"></div>
+            		<textarea id="storyDesc" name="storyDesc"></textarea>
+            	</form>
+            </div>
         </div>
     </div>
     <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
     <script src="scripts/app.js" type="text/javascript" charset="utf-8" async defer></script>
+    <script src="scripts/croppie.min.js" type="text/javascript" charset="utf-8" async defer></script>
 </body>
 
 </html>

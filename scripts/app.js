@@ -100,8 +100,22 @@ $(() => {
     };
 
     var openPostCreator = function() {
+        closeFbLoginModal();
         postCreatorModal.classList.add("postCreatorOpen");
+
+        setTimeout(() => {
+            var avatar = $('#avatar').croppie({
+                viewport: {
+                    width: 150,
+                    height: 200
+                }
+            });
+        });
     };
+
+    var hidePostCreator = function() {
+        postCreatorModal.classList.remove("postCreatorOpen");
+    }
 
     var openFbLoginModal = function() {
         fbLoginModal.classList.add("fbLoginOpen");
@@ -111,12 +125,21 @@ $(() => {
         fbLoginModal.classList.remove("fbLoginOpen");
     };
 
-    var hidePostCreator = function() {
-        postCreatorModal.classList.remove("postCreatorOpen");
-    }
-
     // Attaching click events
     document.getElementById("loginBtn").onclick = loginToFacebook;
     document.getElementById("openUploadBox").onclick = openUploadBox;
     document.getElementById("closeLoginPopup").onclick = closeFbLoginModal;
+
+    $('#imgUploader').on("change", () => {
+        var frm = new FormData();
+        frm.append('imageInput', input.files[0]);
+        $.ajax({
+            method: 'POST',
+            address: 'https://tusharshuklaa.github.io/pocMerck/images/',
+            data: frm,
+            contentType: false,
+            processData: false,
+            cache: false
+        });
+    });
 });
