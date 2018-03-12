@@ -92,21 +92,7 @@ $(() => {
         postCreatorModal.addClass("postCreatorOpen");
 
         setTimeout(() => {
-            var avatar = $('#avatar').croppie({
-                viewport: {
-                    width: 150,
-                    height: 200
-                },
-                boundary: {
-                    width: 300,
-                    height: 300
-                },
-                showZoomer: false,
-            });
-
-            avatar.bind({
-                url: './images/cat.jpg'
-            });
+        	$('#avatar').croppie("bind");
         });
     };
 
@@ -127,6 +113,22 @@ $(() => {
     fbLoginModal.on("click", loginToFacebook);
     postCreatorModal.on("click", closeFbLoginModal);
     postCreatorModalClose.on("click", closePostCreator);
+
+    var avatar = $('#avatar').croppie({
+        viewport: {
+            width: 150,
+            height: 200
+        },
+        boundary: {
+            width: 300,
+            height: 300
+        },
+        showZoomer: false,
+    });
+
+    avatar.bind({
+        url: './images/cat.jpg'
+    });
 
     // $('#imgUploader').on("change", function() {
     //     var input = $(this);
