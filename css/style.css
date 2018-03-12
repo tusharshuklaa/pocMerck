@@ -57,9 +57,11 @@
     width: 60%;
     height: 60%;
     margin: 20px auto;
+    min-height: 300px;
 }
 
 .parentBox #postCreatorModal .postCreator textarea {
+	margin: auto;
 	margin-top: 30px;
     width: 80%;
     display: block;
