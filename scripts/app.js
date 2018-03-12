@@ -114,9 +114,10 @@ $(() => {
     fbLoginModal.on("click", loginToFacebook);
     postCreatorModal.on("click", closeFbLoginModal);
 
-    $('#imgUploader').on("change", () => {
+    $('#imgUploader').on("change", function() {
+        var input = $(this);
         var frm = new FormData();
-        frm.append('imageInput', input.files[0]);
+        frm.append('imageInput', input[0].files[0]);
         $.ajax({
             method: 'POST',
             address: 'https://tusharshuklaa.github.io/pocMerck/images/',
@@ -124,6 +125,8 @@ $(() => {
             contentType: false,
             processData: false,
             cache: false
+        }).done(function(resp) {
+            console.log("resp", resp);
         });
     });
 });
