@@ -93,9 +93,10 @@ $(() => {
         closeFbLoginModal();
         postCreatorModal.addClass("postCreatorOpen");
 
-        setTimeout(() => {
-        	$('#avatar').croppie("bind");
-        });
+        // setTimeout(() => {
+        // 	$('#avatar').croppie("bind");
+        // });
+        $('#avatar').croppie("bind");
     };
 
     var closePostCreator = function() {
