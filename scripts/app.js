@@ -45,24 +45,27 @@ $(() => {
     };
 
     var isFbLoggedIn = function() {
-        return FB.getLoginStatus(function(response) {
-            if (response.status === 'connected') {
-                // the user is logged in and has authenticated your
-                // app, and response.authResponse supplies
-                // the user's ID, a valid access token, a signed
-                // request, and the time the access token 
-                // and signed request each expire
-                var uid = response.authResponse.userID;
-                var accessToken = response.authResponse.accessToken;
-                return true;
-            } else if (response.status === 'not_authorized') {
-                // the user is logged in to Facebook, 
-                // but has not authenticated your app
-                return true;
-            } else {
-                // the user isn't logged in to Facebook.
-                return false;
-            }
+        return new Promise((resolve, reject) => {
+            return FB.getLoginStatus(function(response) {
+                if (response.status === 'connected') {
+                    // the user is logged in and has authenticated your
+                    // app, and response.authResponse supplies
+                    // the user's ID, a valid access token, a signed
+                    // request, and the time the access token 
+                    // and signed request each expire
+                    var uid = response.authResponse.userID;
+                    var accessToken = response.authResponse.accessToken;
+                    resolve(true);
+                } else if (response.status === 'not_authorized') {
+                    // the user is logged in to Facebook, 
+                    // but has not authenticated your app
+                    resolve(true);
+                } else {
+                    // the user isn't logged in to Facebook.
+                    resolve(false);
+
+                }
+            });
         });
     };
 
@@ -77,12 +80,23 @@ $(() => {
         //     console.log("error", err);
         //     openFbLoginModal();
         // });
-        var loggedIn = isFbLoggedIn();
-        if(loggedIn) {
-        	openPostCreator();
-        } else {
-        	openFbLoginModal();
-        }
+        // var loggedIn = isFbLoggedIn();
+        // if (loggedIn) {
+        //     openPostCreator();
+        // } else {
+        //     openFbLoginModal();
+        // }
+
+        isFbLoggedIn().then((loggedIn) => {
+            if (loggedIn) {
+                openPostCreator();
+            } else {
+                openFbLoginModal();
+            }
+        }, (err) => {
+            console.log("err", err);
+            openFbLoginModal();
+        });
     };
 
     var openPostCreator = function() {
