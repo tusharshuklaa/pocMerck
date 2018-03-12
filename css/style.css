@@ -41,9 +41,10 @@
 
 .parentBox #loginFb .loginPopup,
 .parentBox #postCreatorModal .postCreator {
-    width: 30%;
-    min-width: 300px;
-    height: 40vh;
+    width: 50%;
+    min-width: 350px;
+    min-height: 465px;
+    height: 60vh;
     border: 1px solid;
     margin: auto;
     background-color: white;

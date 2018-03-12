@@ -134,20 +134,4 @@ $(() => {
 	avatar.bind({
 	    url: "/pocMerck/images/cat.jpg"
 	});
-
-    // $('#imgUploader').on("change", function() {
-    //     var input = $(this);
-    //     var frm = new FormData();
-    //     frm.append('imageInput', input[0].files[0]);
-    //     $.ajax({
-    //         method: 'POST',
-    //         address: 'https://tusharshuklaa.github.io/pocMerck/images/',
-    //         data: frm,
-    //         contentType: false,
-    //         processData: false,
-    //         cache: false
-    //     }).done(function(resp) {
-    //         console.log("resp", resp);
-    //     });
-    // });
 });
