@@ -20,6 +20,7 @@ $(() => {
 				    }
 				}),
 		postPostedModal: $("#postPostedModal"),
+		postPostedClose: $("#postPostedClose"),
 		postForm: $(".postCreator"),
 		previewImg: $("#previewImg"),
 		storyDesc: $("#storyDesc"),
@@ -90,7 +91,7 @@ $(() => {
 	            mobile_iframe: true,
 	            href: 'https://developers.facebook.com/docs/',
 	        }, function(response) {
-	            closePostCreator();
+	            StoryCreator.closePreview();
 	        });
     	}
     }
@@ -143,6 +144,7 @@ $(() => {
     
     ELEM.uploadNowBtn.on("click", StoryCreator.openCreator);
     ELEM.postCreatorModalClose.on("click", StoryCreator.closeCreator);
+    ELEM.postPostedClose.on("click", StoryCreator.closePreview);
     ELEM.postForm.on("submit", (e) => StoryCreator.save(e));
     ELEM.shareOnFb.on("click", FbUtils.share);
 });
