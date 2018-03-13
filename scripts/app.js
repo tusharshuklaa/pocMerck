@@ -23,6 +23,25 @@ $(() => {
         });
     };
 
+ //    var el = document.getElementById("avatar");
+ //    var avatar = new Croppie(el, {
+	//     viewport: {
+ //            width: 100,
+ //            height: 100
+ //        }
+	// });
+	
+	var avatar = $('#avatar').croppie({
+	    viewport: {
+	        width: 100,
+	        height: 100
+	    }
+	});
+
+	avatar.croppie('bind', {
+	    url: "/pocMerck/images/cat.jpg"
+	});
+
     var shareToFb = function() {
         // avatar.result('blob').then(function(blob) {
         //     // do something with cropped blob
@@ -93,14 +112,14 @@ $(() => {
         closeFbLoginModal();
         postCreatorModal.addClass("postCreatorOpen");
 
-        // setTimeout(() => {
-        // 	$('#avatar').croppie("bind");
-        // });
-        $('#avatar').croppie("bind");
+        setTimeout(() => {
+        	$('#avatar').croppie("bind");
+        }, 100);
+        // $('#avatar').croppie("bind");
 
-        var el = document.getElementById("avatar");
-        var avatar = new Croppie(el);
-        avatar.bind();
+        // var el = document.getElementById("avatar");
+        // var avatar = new Croppie(el);
+        // avatar.bind();
     };
 
     var closePostCreator = function() {
@@ -120,20 +139,4 @@ $(() => {
     fbLoginModal.on("click", loginToFacebook);
     fbLoginModalClose.on("click", closeFbLoginModal);
     postCreatorModalClose.on("click", closePostCreator);
-
-    var el = document.getElementById("avatar");
-    var avatar = new Croppie(el, {
-	    viewport: {
-            width: 200,
-            height: 200
-        },
-        boundary: {
-            width: 300,
-            height: 300
-        }
-	});
-
-	avatar.bind({
-	    url: "/pocMerck/images/cat.jpg"
-	});
 });
