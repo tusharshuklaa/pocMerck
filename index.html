@@ -12,31 +12,37 @@
 <body>
     <div id="root">
         <div class="parentBox">
+        	<!-- Main button to upload story -->
             <button id="openUploadBox">Upload Now</button>
-            <div id="loginFb">
+
+            <!-- <div id="loginFb">
                 <div class="loginPopup">
                 	<span id="closeLoginPopup">x</span>
                 	<button id="loginBtn">Login to Facebook</button>
                 </div>
-            </div>
+            </div> -->
 
             <div id="postCreatorModal">
             	<form class="postCreator" accept-charset="utf-8">
-            		<span id="postModalClose">x</span>
+            		<header>
+            			<h3>Create your story</h3>
+            			<span id="postModalClose">x</span>
+            		</header>
             		<div class="avatarDiv">
             			<div id="avatar"></div>
             		</div>
             		<label for="storyDesc">Story</label>
             		<textarea id="storyDesc" rows="3" name="storyDesc"></textarea>
-            		<input type="submit" id="postToFb" />
+            		<input type="submit" value="Create" />
             	</form>
             </div>
 
             <div id="postPostedModal">
             	<div class="postPosted">
             		<h2>Thank you for sharing your story</h2>
-	            	<img src="/pocMerck/images/cat.jpg" />
+	            	<img id="previewImg" />
 	            	<p id="userStory"></p>
+	            	<button is="shareOnFb">Share on Facebook</button>
             	</div>
             </div>
         </div>

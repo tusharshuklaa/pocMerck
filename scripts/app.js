@@ -11,13 +11,18 @@ $(() => {
 
 	var ELEM = {
 		uploadNowBtn: $("#openUploadBox"),
-		fbLoginModal: $("#loginFb"),
-		fbLoginModalClose: $("#closeLoginPopup"),
 		postCreatorModal: $("#postCreatorModal"),
 		postCreatorModalClose: $("#postModalClose"),
-		avatar: $('#avatar'),
+		avatar: $("#avatar").croppie({
+				    viewport: {
+				        width: 150,
+				        height: 150
+				    }
+				}),
 		postPostedModal: $("#postPostedModal"),
-		postForm: $(".postCreator")
+		postForm: $(".postCreator"),
+		previewImg: $("#previewImg"),
+		storyDesc: $("#storyDesc")
 	};
 
     window.fbAsyncInit = function() {
@@ -28,117 +33,107 @@ $(() => {
             version: 'v2.12'
         });
     };
-	
-	var avatar = ELEM.avatar.croppie({
-	    viewport: {
-	        width: 150,
-	        height: 150
-	    }
-	});
 
-	avatar.croppie('bind', {
+	ELEM.avatar.croppie('bind', {
 	    url: "/pocMerck/images/cat.jpg"
 	});
+    
+    class FbUtils {
+    	constructor() {}
 
-    var shareToFb = function(ev) {
-    	ev.preventDefault();
-    	ev.stopPropagation();
-    	
-        FB.ui({
-            method: 'share',
-            mobile_iframe: true,
-            href: 'https://developers.facebook.com/docs/',
-        }, function(response) {
-            closePostCreator();
-        });
-    };
+    	static login() {
+    		FB.login(function(response) {
+	            if (response.authResponse) {
+	                console.log('Welcome!  Fetching your information.... ');
+	                FB.api('/me', function(response) {
+	                    console.log('Good to see you, ' + response.name + '.');
+	                    openPostCreator();
+	                });
+	            } else {
+	                console.log('User cancelled login or did not fully authorize.');
+	            }
+	        });
+    	}
 
-    var loginToFacebook = function() {
-        FB.login(function(response) {
-            if (response.authResponse) {
-                console.log('Welcome!  Fetching your information.... ');
-                FB.api('/me', function(response) {
-                    console.log('Good to see you, ' + response.name + '.');
-                    openPostCreator();
-                });
-            } else {
-                console.log('User cancelled login or did not fully authorize.');
-            }
-        });
-    };
+    	static isLoggedIn() {
+    		return new Promise((resolve, reject) => {
+	            return FB.getLoginStatus(function(response) {
+	                if (response.status === 'connected') {
+	                    // the user is logged in and has authenticated your
+	                    // app, and response.authResponse supplies
+	                    // the user's ID, a valid access token, a signed
+	                    // request, and the time the access token 
+	                    // and signed request each expire
+	                    var uid = response.authResponse.userID;
+	                    var accessToken = response.authResponse.accessToken;
+	                    resolve(true);
+	                } else if (response.status === 'not_authorized') {
+	                    // the user is logged in to Facebook, 
+	                    // but has not authenticated your app
+	                    resolve(true);
+	                } else {
+	                    // the user isn't logged in to Facebook.
+	                    resolve(false);
 
-    var isFbLoggedIn = function() {
-        return new Promise((resolve, reject) => {
-            return FB.getLoginStatus(function(response) {
-                if (response.status === 'connected') {
-                    // the user is logged in and has authenticated your
-                    // app, and response.authResponse supplies
-                    // the user's ID, a valid access token, a signed
-                    // request, and the time the access token 
-                    // and signed request each expire
-                    var uid = response.authResponse.userID;
-                    var accessToken = response.authResponse.accessToken;
-                    resolve(true);
-                } else if (response.status === 'not_authorized') {
-                    // the user is logged in to Facebook, 
-                    // but has not authenticated your app
-                    resolve(true);
-                } else {
-                    // the user isn't logged in to Facebook.
-                    resolve(false);
+	                }
+	            });
+	        });
+    	}
 
-                }
-            });
-        });
-    };
+    	static share(evt) {
+    		evt.preventDefault();
 
-    var openUploadBox = function() {
-
-        isFbLoggedIn().then((loggedIn) => {
-            if (loggedIn) {
-                openPostCreator();
-            } else {
-                openFbLoginModal();
-            }
-        }, (err) => {
-            console.log("err", err);
-            openFbLoginModal();
-        });
-    };
-
-    var openPostCreator = function() {
-        closeFbLoginModal();
-        ELEM.postCreatorModal.addClass("modalOpen");
-
-        setTimeout(() => {
-        	$('#avatar').croppie("bind");
-        }, 100);
-    };
-
-    var closePostCreator = function() {
-        ELEM.postCreatorModal.removeClass("modalOpen");
+    		FB.ui({
+	            method: 'share',
+	            mobile_iframe: true,
+	            href: 'https://developers.facebook.com/docs/',
+	        }, function(response) {
+	            closePostCreator();
+	        });
+    	}
     }
 
-    var openFbLoginModal = function() {
-        ELEM.fbLoginModal.addClass("modalOpen");
-    };
+    class StoryCreator {
+    	constructor() {}
 
-    var closeFbLoginModal = function() {
-        ELEM.fbLoginModal.removeClass("modalOpen");
-    };
+    	static openCreator() {
+    		ELEM.postCreatorModal.addClass("modalOpen");
 
-    var openPostPostedModal = function() {
-        ELEM.postPostedModal.addClass("modalOpen");
-    };
+	        setTimeout(() => {
+	        	$('#avatar').croppie("bind");
+	        }, 100);
+    	}
 
-    var closePostPostedModal = function() {
-        ELEM.postPostedModal.removeClass("modalOpen");
-    };
+    	static closeCreator() {
+    		ELEM.postCreatorModal.removeClass("modalOpen");
+    	}
+
+    	static openPreview() {
+    		ELEM.postPostedModal.addClass("modalOpen");
+    	}
+
+    	static closePreview() {
+    		ELEM.postPostedModal.removeClass("modalOpen");
+    	}
+
+    	static save() {
+    		ELEM.avatar.croppie("result", {
+    			type: 'html',
+				size: size,
+				resultSize: {
+					width: 150,
+					height: 150
+				}
+    		}).then(function (resp) {
+    			// some code to save the image and story to repo
+    			console.log("resp img", resp);
+			});
+    	}
+    }
 
     // Attaching click events
-    ELEM.uploadNowBtn.on("click", openUploadBox);
-    ELEM.fbLoginModal.on("click", loginToFacebook);
-    ELEM.fbLoginModalClose.on("click", closeFbLoginModal);
-    ELEM.postCreatorModalClose.on("click", closePostCreator);
-    ELEM.postForm.on("submit", shareToFb);
+    
+    ELEM.uploadNowBtn.on("click", StoryCreator.openCreator);
+    ELEM.postCreatorModalClose.on("click", StoryCreator.closeCreator);
+    ELEM.postForm.on("submit", (e) => FbUtils.share(e));
 });
