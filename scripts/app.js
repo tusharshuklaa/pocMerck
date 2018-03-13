@@ -123,7 +123,6 @@ $(() => {
     		var self = this;
     		ELEM.avatar.croppie("result", {
     			type: 'html',
-				size: size,
 				resultSize: {
 					width: 150,
 					height: 150
