@@ -8,11 +8,15 @@
 }(document, 'script', 'facebook-jssdk'));
 
 $(() => {
-    var uploadNowBtn = $("#openUploadBox");
-    var fbLoginModal = $("#loginFb");
-    var fbLoginModalClose = $("#closeLoginPopup");
-    var postCreatorModal = $("#postCreatorModal");
-    var postCreatorModalClose = $("#postModalClose");
+
+	var ELEM = {
+		uploadNowBtn: $("#openUploadBox"),
+		fbLoginModal: $("#loginFb"),
+		fbLoginModalClose: $("#closeLoginPopup"),
+		postCreatorModal: $("#postCreatorModal"),
+		postCreatorModalClose: $("#postModalClose"),
+		avatar: $('#avatar')
+	};
 
     window.fbAsyncInit = function() {
         FB.init({
@@ -22,19 +26,11 @@ $(() => {
             version: 'v2.12'
         });
     };
-
- //    var el = document.getElementById("avatar");
- //    var avatar = new Croppie(el, {
-	//     viewport: {
- //            width: 100,
- //            height: 100
- //        }
-	// });
 	
-	var avatar = $('#avatar').croppie({
+	var avatar = ELEM.avatar.croppie({
 	    viewport: {
-	        width: 100,
-	        height: 100
+	        width: 150,
+	        height: 150
 	    }
 	});
 
@@ -43,9 +39,6 @@ $(() => {
 	});
 
     var shareToFb = function() {
-        // avatar.result('blob').then(function(blob) {
-        //     // do something with cropped blob
-        // });
         FB.ui({
             method: 'share',
             mobile_iframe: true,
@@ -110,33 +103,28 @@ $(() => {
 
     var openPostCreator = function() {
         closeFbLoginModal();
-        postCreatorModal.addClass("postCreatorOpen");
+        ELEM.postCreatorModal.addClass("postCreatorOpen");
 
         setTimeout(() => {
         	$('#avatar').croppie("bind");
         }, 100);
-        // $('#avatar').croppie("bind");
-
-        // var el = document.getElementById("avatar");
-        // var avatar = new Croppie(el);
-        // avatar.bind();
     };
 
     var closePostCreator = function() {
-        postCreatorModal.removeClass("postCreatorOpen");
+        ELEM.postCreatorModal.removeClass("postCreatorOpen");
     }
 
     var openFbLoginModal = function() {
-        fbLoginModal.addClass("fbLoginOpen");
+        ELEM.fbLoginModal.addClass("fbLoginOpen");
     };
 
     var closeFbLoginModal = function() {
-        fbLoginModal.removeClass("fbLoginOpen");
+        ELEM.fbLoginModal.removeClass("fbLoginOpen");
     };
 
     // Attaching click events
-    uploadNowBtn.on("click", openUploadBox);
-    fbLoginModal.on("click", loginToFacebook);
-    fbLoginModalClose.on("click", closeFbLoginModal);
-    postCreatorModalClose.on("click", closePostCreator);
+    ELEM.uploadNowBtn.on("click", openUploadBox);
+    ELEM.fbLoginModal.on("click", loginToFacebook);
+    ELEM.fbLoginModalClose.on("click", closeFbLoginModal);
+    ELEM.postCreatorModalClose.on("click", closePostCreator);
 });
