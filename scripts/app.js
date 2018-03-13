@@ -15,7 +15,9 @@ $(() => {
 		fbLoginModalClose: $("#closeLoginPopup"),
 		postCreatorModal: $("#postCreatorModal"),
 		postCreatorModalClose: $("#postModalClose"),
-		avatar: $('#avatar')
+		avatar: $('#avatar'),
+		postPostedModal: $("#postPostedModal"),
+		postForm: $(".postCreator")
 	};
 
     window.fbAsyncInit = function() {
@@ -38,7 +40,10 @@ $(() => {
 	    url: "/pocMerck/images/cat.jpg"
 	});
 
-    var shareToFb = function() {
+    var shareToFb = function(ev) {
+    	ev.preventDefault();
+    	ev.stopPropagation();
+    	
         FB.ui({
             method: 'share',
             mobile_iframe: true,
@@ -103,7 +108,7 @@ $(() => {
 
     var openPostCreator = function() {
         closeFbLoginModal();
-        ELEM.postCreatorModal.addClass("postCreatorOpen");
+        ELEM.postCreatorModal.addClass("modalOpen");
 
         setTimeout(() => {
         	$('#avatar').croppie("bind");
@@ -111,15 +116,23 @@ $(() => {
     };
 
     var closePostCreator = function() {
-        ELEM.postCreatorModal.removeClass("postCreatorOpen");
+        ELEM.postCreatorModal.removeClass("modalOpen");
     }
 
     var openFbLoginModal = function() {
-        ELEM.fbLoginModal.addClass("fbLoginOpen");
+        ELEM.fbLoginModal.addClass("modalOpen");
     };
 
     var closeFbLoginModal = function() {
-        ELEM.fbLoginModal.removeClass("fbLoginOpen");
+        ELEM.fbLoginModal.removeClass("modalOpen");
+    };
+
+    var openPostPostedModal = function() {
+        ELEM.postPostedModal.addClass("modalOpen");
+    };
+
+    var closePostPostedModal = function() {
+        ELEM.postPostedModal.removeClass("modalOpen");
     };
 
     // Attaching click events
@@ -127,4 +140,5 @@ $(() => {
     ELEM.fbLoginModal.on("click", loginToFacebook);
     ELEM.fbLoginModalClose.on("click", closeFbLoginModal);
     ELEM.postCreatorModalClose.on("click", closePostCreator);
+    ELEM.postForm.on("submit", shareToFb);
 });

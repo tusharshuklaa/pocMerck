@@ -13,7 +13,8 @@
 }
 
 .parentBox #loginFb,
-.parentBox #postCreatorModal {
+.parentBox #postCreatorModal,
+.parentBox #postPostedModal {
     height: 100%;
     width: 100%;
     text-align: center;
@@ -34,13 +35,15 @@
     cursor: pointer;
 }
 
-.parentBox #loginFb.fbLoginOpen,
-.parentBox #postCreatorModal.postCreatorOpen {
+.parentBox #loginFb.modalOpen,
+.parentBox #postCreatorModal.modalOpen,
+.parentBox #postPostedModal.modalOpen {
     display: block;
 }
 
 .parentBox #loginFb .loginPopup,
-.parentBox #postCreatorModal .postCreator {
+.parentBox #postCreatorModal .postCreator,
+.parentBox #postPostedModal .postPosted {
     width: 50%;
     min-width: 350px;
     min-height: 465px;
@@ -52,6 +55,12 @@
     border-radius: 5px;
     overflow: auto;
     padding: 15px;
+}
+
+.parentBox #postPostedModal .postPosted img {
+	width: 80%;
+	border-radius: 50%;
+	border: 2px solid black;
 }
 
 .parentBox #postCreatorModal .postCreator .avatarDiv {

@@ -12,7 +12,6 @@
 <body>
     <div id="root">
         <div class="parentBox">
-            <!-- <button id="shareBtn">Upload Now</button> -->
             <button id="openUploadBox">Upload Now</button>
             <div id="loginFb">
                 <div class="loginPopup">
@@ -20,15 +19,25 @@
                 	<button id="loginBtn">Login to Facebook</button>
                 </div>
             </div>
+
             <div id="postCreatorModal">
             	<form class="postCreator" accept-charset="utf-8">
             		<span id="postModalClose">x</span>
             		<div class="avatarDiv">
             			<div id="avatar"></div>
             		</div>
-            		<textarea id="storyDesc" rows="2" name="storyDesc"></textarea>
+            		<label for="storyDesc">Story</label>
+            		<textarea id="storyDesc" rows="3" name="storyDesc"></textarea>
             		<input type="submit" id="postToFb" />
             	</form>
+            </div>
+
+            <div id="postPostedModal">
+            	<div class="postPosted">
+            		<h2>Thank you for sharing your story</h2>
+	            	<img src="/pocMerck/images/cat.jpg" />
+	            	<p id="userStory"></p>
+            	</div>
             </div>
         </div>
     </div>
