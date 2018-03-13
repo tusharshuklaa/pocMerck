@@ -33,6 +33,11 @@
     float: right;
     padding-right: 3px;
     cursor: pointer;
+    font-size: 1.5em;
+}
+
+.parentBox #postCreatorModal .postCreator h3 {
+	display: inline-block;
 }
 
 .parentBox #loginFb.modalOpen,
@@ -70,11 +75,21 @@
     min-height: 300px;
 }
 
-.parentBox #postCreatorModal .postCreator textarea {
+.parentBox #postCreatorModal .postCreator .storyContainer {
+	margin: 50px 0px 10px 0px;
+}
+
+.parentBox #postCreatorModal .postCreator .storyContainer label {
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 10px;
+}
+
+.parentBox #postCreatorModal .postCreator .storyContainer textarea {
 	margin: auto;
-	margin-top: 60px;
     width: 80%;
-    display: block;
+    display: inline-block;
+    vertical-align: middle;
 }
 
 .parentBox #loginFb .loginPopup #loginBtn, 

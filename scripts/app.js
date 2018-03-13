@@ -22,7 +22,8 @@ $(() => {
 		postPostedModal: $("#postPostedModal"),
 		postForm: $(".postCreator"),
 		previewImg: $("#previewImg"),
-		storyDesc: $("#storyDesc")
+		storyDesc: $("#storyDesc"),
+		shareOnFb: $("#shareOnFb")
 	};
 
     window.fbAsyncInit = function() {
@@ -117,6 +118,7 @@ $(() => {
     	}
 
     	static save() {
+    		var self = this;
     		ELEM.avatar.croppie("result", {
     			type: 'html',
 				size: size,
@@ -127,6 +129,8 @@ $(() => {
     		}).then(function (resp) {
     			// some code to save the image and story to repo
     			console.log("resp img", resp);
+    			ELEM.previewImg.html(resp);
+    			self.openPreview();
 			});
     	}
     }
@@ -135,5 +139,6 @@ $(() => {
     
     ELEM.uploadNowBtn.on("click", StoryCreator.openCreator);
     ELEM.postCreatorModalClose.on("click", StoryCreator.closeCreator);
-    ELEM.postForm.on("submit", (e) => FbUtils.share(e));
+    ELEM.postForm.on("submit", StoryCreator.save);
+    ELEM.shareOnFb.on("click", (e) => FbUtils.share(e));
 });
