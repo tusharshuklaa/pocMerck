@@ -117,7 +117,9 @@ $(() => {
     		ELEM.postPostedModal.removeClass("modalOpen");
     	}
 
-    	static save() {
+    	static save(ev) {
+    		ev.preventDefault();
+    		ev.stopPropagation();
     		var self = this;
     		ELEM.avatar.croppie("result", {
     			type: 'html',
@@ -139,6 +141,6 @@ $(() => {
     
     ELEM.uploadNowBtn.on("click", StoryCreator.openCreator);
     ELEM.postCreatorModalClose.on("click", StoryCreator.closeCreator);
-    ELEM.postForm.on("submit", StoryCreator.save);
-    ELEM.shareOnFb.on("click", (e) => FbUtils.share(e));
+    ELEM.postForm.on("submit", (e) => StoryCreator.save(e));
+    ELEM.shareOnFb.on("click", FbUtils.share);
 });
