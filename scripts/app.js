@@ -23,6 +23,7 @@ $(() => {
 		postForm: $(".postCreator"),
 		previewImg: $("#previewImg"),
 		storyDesc: $("#storyDesc"),
+		userStory: $("#userStory"),
 		shareOnFb: $("#shareOnFb")
 	};
 
@@ -122,7 +123,7 @@ $(() => {
     		ev.stopPropagation();
     		var self = this;
     		ELEM.avatar.croppie("result", {
-    			type: 'html',
+    			type: 'base64',
 				resultSize: {
 					width: 150,
 					height: 150
@@ -130,7 +131,9 @@ $(() => {
     		}).then(function (resp) {
     			// some code to save the image and story to repo
     			console.log("resp img", resp);
-    			ELEM.previewImg.html(resp);
+    			ELEM.previewImg.attr("src", resp);
+    			self.closeCreator();
+    			ELEM.userStory.text(ELEM.storyDesc.val());
     			self.openPreview();
 			});
     	}
