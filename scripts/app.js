@@ -97,6 +97,10 @@ $(() => {
         // 	$('#avatar').croppie("bind");
         // });
         $('#avatar').croppie("bind");
+
+        var el = document.getElementById("avatar");
+        var avatar = new Croppie(el);
+        avatar.bind();
     };
 
     var closePostCreator = function() {
