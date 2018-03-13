@@ -120,15 +120,13 @@ $(() => {
     var el = document.getElementById("avatar");
     var avatar = new Croppie(el, {
 	    viewport: {
-            width: 150,
-            height: 200,
-            type: 'circle'
+            width: 200,
+            height: 200
         },
         boundary: {
             width: 300,
             height: 300
-        },
-        showZoomer: false
+        }
 	});
 
 	avatar.bind({
