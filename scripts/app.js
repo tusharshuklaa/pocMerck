@@ -141,19 +141,24 @@ $(() => {
     		ev.preventDefault();
     		ev.stopPropagation();
     		var self = this;
-    		ELEM.avatar.croppie("result", {
-    			type: 'base64',
-				resultSize: {
-					width: 150,
-					height: 150
-				}
-    		}).then(function (resp) {
-    			// some code to save the image and story to repo
-    			ELEM.previewImg.attr("src", resp);
-    			self.closeCreator();
-    			ELEM.userStory.text(ELEM.storyDesc.val());
-    			self.openPreview();
-			});
+    		var story = ELEM.storyDesc.val();
+    		if(story && story !== "") {
+    			ELEM.avatar.croppie("result", {
+	    			type: 'base64',
+					resultSize: {
+						width: 150,
+						height: 150
+					}
+	    		}).then(function (resp) {
+	    			// some code to save the image and story to repo
+	    			ELEM.previewImg.attr("src", resp);
+	    			self.closeCreator();
+	    			ELEM.userStory.text();
+	    			self.openPreview();
+				});
+    		} else {
+    			alert("Cannot submit empty story");
+    		}
     	}
     }
 
