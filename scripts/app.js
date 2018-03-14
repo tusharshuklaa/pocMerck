@@ -86,24 +86,28 @@ $(() => {
     	static share(evt) {
     		evt.preventDefault();
 
-    		var imgSrc = ELEM.previewImg.attr("src");
-    		var storyText = ELEM.userStory.text();
+    		var img = ELEM.previewImg.attr("src");
+		    var desc = ELEM.userStory.text();
+		    var title = document.title;
+		    var link = window.location.href;
 
-    		// window.open('http://www.facebook.com/sharer.php?u='+
-    		// 	encodeURIComponent(u)+
-    		// 	'&t='+encodeURIComponent(t),
-    		// 	'sharer','toolbar=0,status=0,width=626,height=436');
-    		// return false;
-
-    		var fbShareUrl = "http://www.facebook.com/sharer.php?u=" +
-    		encodeURIComponent(imgSrc) + "&t=" + encodeURIComponent(storyText);
+    		// var fbShareUrl = "http://www.facebook.com/sharer.php?u=" +
+    		// encodeURIComponent(imgSrc) + "&t=" + encodeURIComponent(storyText);
 
     		FB.ui({
-	            method: 'share',
-	            mobile_iframe: true,
-	            href: fbShareUrl,
+	            method: 'share_open_graph',
+		        action_type: 'og.shares',
+		        action_properties: JSON.stringify({
+		            object: {
+		                'og:url': link,
+		                'og:title': title,
+		                'og:description': desc,
+		                'og:image': img
+		            }
+		        })
 	        }, function(response) {
 	            StoryCreator.closePreview();
+	            alert("Your story has been shared on Facebook succesfully!");
 	        });
     	}
     }
