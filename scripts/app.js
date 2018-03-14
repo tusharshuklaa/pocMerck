@@ -106,8 +106,10 @@ $(() => {
 		        })
 	        }, function(response) {
 	        	console.log("response from fb", response);
-	            StoryCreator.closePreview();
-	            alert("Your story has been shared on Facebook succesfully!");
+	            if(response) {
+	            	StoryCreator.closePreview();
+	            	alert("Your story has been shared on Facebook succesfully!");
+	            }
 	        });
     	}
     }
