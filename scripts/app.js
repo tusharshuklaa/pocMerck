@@ -86,13 +86,12 @@ $(() => {
     	static share(evt) {
     		evt.preventDefault();
 
-    		var img = ELEM.previewImg.attr("src");
+    		// var img = ELEM.previewImg.attr("src");
+    		// Have to give the url of cropped image saved on server, base64/blob won't work for sharing on fb
+    		var img = "https://tusharshuklaa.github.io/pocMerck/images/cat.jpg";
 		    var desc = ELEM.userStory.text();
 		    var title = document.title;
 		    var link = window.location.href;
-
-    		// var fbShareUrl = "http://www.facebook.com/sharer.php?u=" +
-    		// encodeURIComponent(imgSrc) + "&t=" + encodeURIComponent(storyText);
 
     		FB.ui({
 	            method: 'share_open_graph',
@@ -106,6 +105,7 @@ $(() => {
 		            }
 		        })
 	        }, function(response) {
+	        	console.log("response from fb", response);
 	            StoryCreator.closePreview();
 	            alert("Your story has been shared on Facebook succesfully!");
 	        });
@@ -147,7 +147,6 @@ $(() => {
 				}
     		}).then(function (resp) {
     			// some code to save the image and story to repo
-    			console.log("resp img", resp);
     			ELEM.previewImg.attr("src", resp);
     			self.closeCreator();
     			ELEM.userStory.text(ELEM.storyDesc.val());
