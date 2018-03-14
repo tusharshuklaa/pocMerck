@@ -153,7 +153,7 @@ $(() => {
 	    			// some code to save the image and story to repo
 	    			ELEM.previewImg.attr("src", resp);
 	    			self.closeCreator();
-	    			ELEM.userStory.text();
+	    			ELEM.userStory.text(story);
 	    			self.openPreview();
 				});
     		} else {
