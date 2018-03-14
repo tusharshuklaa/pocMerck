@@ -86,10 +86,22 @@ $(() => {
     	static share(evt) {
     		evt.preventDefault();
 
+    		var imgSrc = previewImg.attr("src");
+    		var storyText = userStory.text();
+
+    		// window.open('http://www.facebook.com/sharer.php?u='+
+    		// 	encodeURIComponent(u)+
+    		// 	'&t='+encodeURIComponent(t),
+    		// 	'sharer','toolbar=0,status=0,width=626,height=436');
+    		// return false;
+
+    		var fbShareUrl = "http://www.facebook.com/sharer.php?u=" +
+    		encodeURIComponent(imgSrc) + "&t=" + encodeURIComponent(storyText);
+
     		FB.ui({
 	            method: 'share',
 	            mobile_iframe: true,
-	            href: 'https://developers.facebook.com/docs/',
+	            href: fbShareUrl,
 	        }, function(response) {
 	            StoryCreator.closePreview();
 	        });
