@@ -86,8 +86,8 @@ $(() => {
     	static share(evt) {
     		evt.preventDefault();
 
-    		var imgSrc = previewImg.attr("src");
-    		var storyText = userStory.text();
+    		var imgSrc = ELEM.previewImg.attr("src");
+    		var storyText = ELEM.userStory.text();
 
     		// window.open('http://www.facebook.com/sharer.php?u='+
     		// 	encodeURIComponent(u)+
