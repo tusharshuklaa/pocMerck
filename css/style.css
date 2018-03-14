@@ -6,6 +6,7 @@
     right: 0px;
     overflow: hidden;
     text-align: center;
+    background-color: grey;
 }
 
 .parentBox #openUploadBox {
@@ -111,7 +112,9 @@
     line-height: 26px;
     padding: 0 10px;
     color: #fff;
-    transition: 200ms cubic-bezier(.08,.52,.52,1) background-color, 200ms cubic-bezier(.08,.52,.52,1) box-shadow, 200ms cubic-bezier(.08,.52,.52,1) transform;
+    transition: 200ms cubic-bezier(.08,.52,.52,1) background-color, 
+    			200ms cubic-bezier(.08,.52,.52,1) box-shadow, 
+    			200ms cubic-bezier(.08,.52,.52,1) transform;
     border: 1px solid;
     border-radius: 2px;
     box-sizing: content-box;
