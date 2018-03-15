@@ -13,34 +13,30 @@ $(() => {
 		uploadNowBtn: $("#openUploadBox"),
 		postCreatorModal: $("#postCreatorModal"),
 		postCreatorModalClose: $("#postModalClose"),
-		avatar: $("#avatar").croppie({
-				    viewport: {
-				        width: 150,
-				        height: 150
-				    }
-				}),
+		uploadCrop: $("#avatar").croppie({
+					    viewport: {
+					        width: 150,
+					        height: 150
+					    }
+					}),
 		postPostedModal: $("#postPostedModal"),
 		postPostedClose: $("#postPostedClose"),
 		postForm: $(".postCreator"),
 		previewImg: $("#previewImg"),
 		storyDesc: $("#storyDesc"),
 		userStory: $("#userStory"),
-		shareOnFb: $("#shareOnFb")
+		shareOnFb: $("#shareOnFb"),
+		uploadAvatar: $("#uploadAvatar")
 	};
 
     window.fbAsyncInit = function() {
         FB.init({
-            // appId: '347325375620967',
             appId: '1662052057223084',
             autoLogAppEvents: true,
             xfbml: true,
             version: 'v2.12'
         });
     };
-
-	ELEM.avatar.croppie('bind', {
-	    url: "/pocMerck/images/cat.jpg"
-	});
     
     class FbUtils {
     	constructor() {}
@@ -138,13 +134,36 @@ $(() => {
     		ELEM.postPostedModal.removeClass("modalOpen");
     	}
 
+    	static readFile(input) {
+    		if (input.files && input.files[0]) {
+	            var reader = new FileReader();
+	            
+	            reader.onload = function (e) {
+					$('.upload-demo').addClass('ready');
+	            	ELEM.uploadCrop.croppie('bind', {
+	            		url: e.target.result
+	            	}).then(function(){
+	            		console.log('jQuery bind complete');
+	            	});
+	            	
+	            }
+	            
+	            reader.readAsDataURL(input.files[0]);
+	        }
+	        else {
+		        console.log("Sorry - you're browser doesn't support the FileReader API");
+		    }
+    	}
+
     	static save(ev) {
     		ev.preventDefault();
     		ev.stopPropagation();
     		var self = this;
     		var story = ELEM.storyDesc.val();
+    		ELEM.storyDesc.val("");
     		if(story && story !== "") {
-    			ELEM.avatar.croppie("result", {
+				
+				ELEM.uploadCrop.croppie("result", {
 	    			type: 'base64',
 					resultSize: {
 						width: 150,
@@ -170,4 +189,5 @@ $(() => {
     ELEM.postPostedClose.on("click", StoryCreator.closePreview);
     ELEM.postForm.on("submit", (e) => StoryCreator.save(e));
     ELEM.shareOnFb.on("click", FbUtils.share);
+    ELEM.uploadAvatar.on('change', () => { StoryCreator.readFile(this); });
 });
