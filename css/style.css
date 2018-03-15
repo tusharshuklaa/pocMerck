@@ -75,6 +75,11 @@
     height: 60%;
     margin: 20px auto;
     min-height: 300px;
+    display: none;
+}
+
+.parentBox #postCreatorModal .postCreator.ready .avatarDiv {
+    display: block;
 }
 
 .parentBox #postCreatorModal .postCreator .storyContainer {
